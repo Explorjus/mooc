@@ -24,9 +24,7 @@ def print_student(students, name):
                 print(f"  {kurs[0]} {kurs[1]}")  # printuje kursy ktore sa zpaisane w tuple
                 suma += kurs[1]
             
-            for kurs in students[name]:
-                if kurs[0] in students[name]:
-                    students[kurs[1]] = 0
+            
            
             print(f" average grade {suma/liczba_kursow}")
             
@@ -58,22 +56,9 @@ def summary(students):
     for i in students[najw]:
         suma += 1   
 
- 
-            
-        
-        
-
-
     print(f"most courses completed {suma} {najw}")
  
    
-
-
-        
-
-
-
-
 if __name__ == "__main__":
 
     students = {}
@@ -85,5 +70,6 @@ if __name__ == "__main__":
     add_course(students, "Eliza", ("Introduction to Programming", 5))
     add_course(students, "Eliza", ("Introduction to Computer Science", 4))
     print_student(students, "Peter")
+    print_student(students, 'Eliza')
     summary(students)
   

@@ -9,7 +9,8 @@ def row_sums():
     lista = lista_calkowita()
     nowa = [sum(row) for row in lista]  # Oblicza sumę każdego rzędu i tworzy nową listę
     for i, suma in enumerate(nowa, start=1):
-        print(f"{i}, {suma}")
+        print(f"{i} {suma}")
+    
     return nowa
 
 def matrix_sum():
