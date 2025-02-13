@@ -1,3 +1,71 @@
 # tee ratkaisu tänne
 # Write your solution here
+import math 
 
+def get_station_data(filename: str):
+    with open(filename, 'r') as file:
+        stacje = {}
+        headers = file.readline().strip().split(';')  # Wczytuje nagłówki kolumn 
+        
+        # Znajdź indeksy odpowiednich kolumn
+        longitude_index = headers.index('Longitude') #indeks szerokości 
+        latitude_index = headers.index('Latitude') #indeks długości 
+        name_index = headers.index('name')  #nazwa miasta
+        
+        for line in file:   #iteruje przez kazda linie w pliku zaczynajac od drugiej lini poniewaz pierwsza zsotala wczytana
+            parts = line.strip().split(';')   # jako headers
+            name = parts[name_index]   
+            longitude = float(parts[longitude_index])
+            latitude = float(parts[latitude_index])
+            stacje[name] = (longitude, latitude)
+    
+    return stacje
+
+def distance(stations: dict, station1: str, station2: str):
+    
+    longitude1 = stations[station1][0]
+    longitude2 = stations[station2][0]
+    latitude1 = stations[station1][1]
+    latitude2 = stations[station2][1]
+    
+    x_km = (longitude1 - longitude2) * 55.26
+    y_km = (latitude1 - latitude2) * 111.2
+    distance_km = math.sqrt(x_km**2 + y_km**2)
+
+    return distance_km
+
+def greatest_distance(stations: dict):
+    max_distance = 0
+    station1 = ""
+    station2 = ""
+    
+    station_names = list(stations.keys())
+    for i in range(len(station_names)):
+        for j in range(i + 1, len(station_names)):
+            s1 = station_names[i]
+            s2 = station_names[j]
+            dist = distance(stations, s1, s2)
+            if dist > max_distance:
+                max_distance = dist
+                station1 = s1
+                station2 = s2
+    
+    return (station1, station2, max_distance)
+
+
+if __name__ == "__main__":
+
+    stations = get_station_data('stations1.csv')
+    d = distance(stations, "Designmuseo", "Hietalahdentori")
+    print(d)
+    d = distance(stations, "Viiskulma", "Kaivopuisto")
+    print(d)
+
+# Przykładowe wywołanie funkcji
+    stations = get_station_data("stations1.csv")
+    for name, coords in stations.items():
+        print(f"{name}: {coords}")
+
+   
+
+ 
